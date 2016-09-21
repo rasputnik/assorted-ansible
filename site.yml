@@ -1,0 +1,7 @@
+---
+
+- hosts: gitlabs
+  become: yes
+  roles:
+    - repos/gitlab-ce
+
