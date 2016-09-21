@@ -1,0 +1,4 @@
+---
+
+- name: install gitlab RPM
+  yum: name=gitlab-ce state=present

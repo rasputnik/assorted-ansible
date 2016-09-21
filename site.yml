@@ -5,3 +5,4 @@
   roles:
     - repos/gitlab-ce
     - postfix
+    - gitlab
