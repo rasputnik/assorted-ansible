@@ -1,0 +1,14 @@
+---
+
+- name: install postfix
+  yum: name=postfix state=present
+
+- name: set postfix to relay via {{ gitlab_smarthost }}
+  lineinfile: dest=/etc/postfix/main.cf
+              regexp=^relayhost
+              line="relayhost={{ gitlab_smarthost }}"
+  when: gitlab_smarthost is defined
+  notify: bounce postfix
+
+- name: start postfix service
+  service: name=postfix state=started enabled=yes
