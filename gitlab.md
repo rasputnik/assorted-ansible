@@ -11,18 +11,16 @@ The RPM is an Omnibus package, so it installs its
 own universe under /opt/gitlab with postgres, rails, etc.
 and uses its own Chef to fire it all up.
 
-
 Once the play is run, you should manually start gitlab
 with
 
     sudo /opt/gitlab/bin/gitlab-ctl reconfigure
 
-This isn't hooked into the init system of the VM.
-So after a reboot, gitlab won't be running. 
+There's an upstart script at
 
-I'll eventually work out how to have this start at boot,
-I don't need it right now myself. Just run the same
-command to start things.
+    /etc/init/gitlab-runsvdir.conf
+
+to fire everything up at system boot.
 
 MTA
 ===
