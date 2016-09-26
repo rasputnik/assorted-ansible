@@ -6,3 +6,9 @@
     - repos/gitlab-ce
     - postfix
     - gitlab
+
+- hosts: nexuses
+  become: yes
+  roles:
+    - openjdk8
+    - nexus3

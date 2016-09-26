@@ -1,0 +1,8 @@
+- name: download {{ nexus3_release }} tarball
+  get_url: url={{ nexus3_tar_url }}
+           dest={{ nexus3_tar_cache }}
+
+- name: extract nexus3 tar
+  unarchive: src={{ nexus3_tar_cache }} dest={{ nexus3_home_parent }}
+             creates={{ nexus3_home }}/NOTICE.txt
+             copy=no
