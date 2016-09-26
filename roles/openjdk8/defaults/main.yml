@@ -1,0 +1,4 @@
+---
+
+openjdk8_rpm: java-1.8.0-openjdk-devel
+openjdk8_java_home: /usr/lib/jvm/java-1.8.0-openjdk.x86_64
