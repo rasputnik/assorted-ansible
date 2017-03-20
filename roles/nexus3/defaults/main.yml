@@ -4,9 +4,17 @@
 # then extract it under nexus3_home_parent to create nexus3_home...
 #
 nexus3_release: nexus-3.2.1-01
+
 nexus3_tar_url: "http://download.sonatype.com/nexus/3/{{ nexus3_release }}-unix.tar.gz"
 nexus3_tar_cache: "/root/.{{ nexus3_release }}-unix.tar.gz"
 
 nexus3_home_parent: /opt
 nexus3_home: "{{ nexus3_home_parent }}/{{ nexus3_release }}"
+# must be:~
+# 1. writable by nexus3_user
+# 2. at same level as nexus3_home (?)
+#
+nexus3_work_dir: "{{ nexus3_home_parent }}/sonatype-work"
+
 nexus3_user: nexus
+nexus3_group: "{{ nexus3_user }}"

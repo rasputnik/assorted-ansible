@@ -1,10 +1,13 @@
 
+- name: create {{ nexus3_group }}
+  group: name={{ nexus3_group }}
+
 - name: create {{ nexus3_user }} account
   user:
     name: "{{ nexus3_user }}"
-    home: "{{ nexus3_home }}"
+    group: "{{ nexus3_group }}"
     comment: Sonatype Nexus
-    createhome: no
+    createhome: yes
 
 - name: download {{ nexus3_release }} tarball
   get_url:
@@ -38,3 +41,10 @@
   with_items:
     - "{{ nexus3_home }}/bin/nexus.rc"
     - /etc/profile.d/nexus3.sh
+
+- name: writable {{ nexus3_work_dir }} directory
+  file:
+    state: directory
+    owner: "{{ nexus3_user }}"
+    group: "{{ nexus3_group }}"
+    path: "{{ nexus3_work_dir }}"
