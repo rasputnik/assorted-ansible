@@ -1,0 +1,51 @@
+
+- name: create {{ nexus3_group }}
+  group:
+    name: "{{ nexus3_group }}"
+
+- name: create {{ nexus3_user }} account
+  user:
+    name: "{{ nexus3_user }}"
+    group: "{{ nexus3_group }}"
+    comment: Sonatype Nexus
+    createhome: yes
+
+- name: download {{ nexus3_release }} tarball
+  get_url:
+    url: "{{ nexus3_tar_url }}"
+    dest: "{{ nexus3_tar_cache }}"
+
+- name: extract nexus3 tar
+  unarchive:
+    src: "{{ nexus3_tar_cache }}"
+    dest: "{{ nexus3_home_parent }}"
+    creates: "{{ nexus3_home }}/NOTICE.txt"
+    remote_src: yes
+
+- name: use initscript from tarball
+  copy:
+    src: "{{ nexus3_home }}/bin/nexus"
+    dest: /etc/init.d/nexus
+    mode: 0555
+    remote_src: yes
+    owner: root
+    group: root
+
+
+- name: run as {{ nexus3_user }} from {{ nexus3_home }}
+  template:
+    src: ".{{ item }}.j2"
+    dest: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0444
+  with_items:
+    - "{{ nexus3_home }}/bin/nexus.rc"
+    - /etc/profile.d/nexus3.sh
+
+- name: writable {{ nexus3_work_dir }} directory
+  file:
+    state: directory
+    owner: "{{ nexus3_user }}"
+    group: "{{ nexus3_group }}"
+    path: "{{ nexus3_work_dir }}"

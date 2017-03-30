@@ -1,0 +1,6 @@
+---
+
+- name: install {{ openjdk8_rpm }}
+  yum:
+    name: "{{ openjdk8_rpm }}"
+    state: present

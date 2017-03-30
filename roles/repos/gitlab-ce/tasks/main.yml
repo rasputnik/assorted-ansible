@@ -1,8 +1,12 @@
 ---
 
 - name: add Gitlab CE repo
-  copy: src=.{{ item }} dest={{ item }}
-        mode=0444 owner=root group=root
+  copy:
+    src: ".{{ item }}"
+    dest: "{{ item }}"
+    mode: 0444
+    owner: root
+    group: root
   with_items:
     - /etc/pki/rpm-gpg/RPM-GPG-KEY-gitlab_gitlab-ce
     - /etc/yum.repos.d/gitlab_gitlab-ce.repo
