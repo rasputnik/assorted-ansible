@@ -1,6 +1,7 @@
 
 - name: create {{ nexus3_group }}
-  group: name={{ nexus3_group }}
+  group:
+    name: "{{ nexus3_group }}"
 
 - name: create {{ nexus3_user }} account
   user:
